@@ -2,6 +2,9 @@
 <h1>Bookers</h1>
 
 <h3>Userinfo</h3>
+
+
+
 <h3>New book</h3>
 
 <%= form_for(@book) do |f| %>
@@ -17,22 +20,21 @@
 <% end %>
 
 
-<h2>Books</h2>
+<h2>Users</h2>
 <table>
 	<thead>
 		<tr>
-			<th>Title</th>
-		    <th>Opinion</th>
+			<th>image</th>
+		    <th>name</th>
 		</tr>
 	</thead>
 	<tbody>
-	  <% @books.each do |book| %><!-- 繰り返し処理 -->
+	  <% @users.each do |user| %><!-- 繰り返し処理 -->
 		<tr>
-			<td><%= book.title %></td>
-			<td><%= book.body %></td>
+			<td><%= attachment_image_tag user, :profile_image,　format: 'jpeg', fallback: "no_image.jpg", size: "60x60" %></td>
+			<td><%= user.name %></td>
 	    </tr>
 	  <% end %>
 	</tbody>
 </table>
 </div>
-
