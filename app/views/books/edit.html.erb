@@ -1,5 +1,16 @@
 <h1>Editing Book</h1>
 
+<% if @books.errors.any? %>
+  <div class="alert alert-warning">
+    <h2><%= @books.errors.count %>error prohibited this obj from being saved:</h2>
+    <ul>
+      <% @books.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
 <%= form_for @books do |f| %>
 <!-- @book=Book.new＝＞createアクションで定義した空箱 -->
 <h4>Title</h4>
