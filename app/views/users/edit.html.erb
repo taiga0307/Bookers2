@@ -1,5 +1,17 @@
 <h3>User info</h3>
 
+
+<% if @user.errors.any? %>
+  <div class="alert alert-warning">
+    <h2><%= @user.errors.count %>error prohibited this obj from being saved:</h2>
+    <ul>
+      <% @user.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
 <%= form_for(@user) do |f| %>
 <!-- @book=Book.new＝＞createアクションで定義した空箱 -->
 <h4>Name</h4>

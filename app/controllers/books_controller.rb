@@ -3,13 +3,14 @@ class BooksController < ApplicationController
   def index
     @book  = Book.new
     @books = Book.all
-    @user = current_user
   end
 
   def show
     @book  = Book.new
     @books = Book.find(params[:id])
     @user = User.find(@books.user_id)
+    @users = @books.user
+    # 1つの本にむすびついているuserの情報を持ってくる
   end
 
   def create# submitを押した際に適用される
@@ -18,11 +19,10 @@ class BooksController < ApplicationController
     @book.user_id = current_user.id
     if @book.save
     # @bookには１つのレコードが保存
-    flash[:success] = 'You have creatad book successfully.'
+    flash[:notice] = 'You have creatad book successfully.'
     redirect_to book_path(@book.id)
     # (@book.id)で保存されたから次のページに飛べる
     else
-      @books = Book.all
       render :index #indexに戻す
     end
   end
@@ -32,13 +32,12 @@ class BooksController < ApplicationController
   end
 
   def update
-    @book = Book.find(params[:id])
-    if @book.update(book_params)
+    @books = Book.find(params[:id])
+    if @books.update(book_params)
+       redirect_to book_path(@books.id)
        flash[:success] = 'You have updated book successfully.'
-       redirect_to book_path(@book.id)
     else
-       @books = Book.all
-       render :edit #indexに戻す
+       render :edit
     end
   end
 

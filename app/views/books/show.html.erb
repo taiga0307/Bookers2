@@ -1,14 +1,18 @@
 
-<h1>Bookers</h1>
-
-<%= render 'books/list', book: @book %>
+<%= flash[:notice] %><%= flash[:success] %>
+<%= render 'books/list', book: @book ,user: @users %>
 
 
 <h2>Book detail</h2>
 <table>
 	<thead>
 		<tr>
-			<td><%= attachment_image_tag book.user, :profile_image,　format: 'jpeg', fallback: "no_image.jpg", size: "60x60" %></td></td>
+
+			<td><%= link_to user_path(@users) do %>
+				<%= attachment_image_tag @users, :profile_image, class: "img-circle pull-left profile-thumb", fallback: "no_image.jpg", size: "60x60" %>
+				<%= @users.name %>
+				<% end %>
+			</td>
 			<td><%= @books.title %></td>
 			<td><%= @books.body %></td>
 			<td><%= link_to "Edit",edit_book_path(@books) %></td>

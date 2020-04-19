@@ -1,20 +1,33 @@
+
+<% if book.errors.any? %>
+  <div class="alert alert-warning">
+    <h2><%= book.errors.count %>error prohibited this obj from being saved:</h2>
+    <ul>
+      <% book.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+
 <h3>Userinfo</h3>
-<%= attachment_image_tag book.user, :profile_image,　format: 'jpeg', fallback: "no_image.jpg", size: "60x60" %>
+<%= attachment_image_tag user, :profile_image,　format: 'jpeg', fallback: "no_image.jpg", size: "60x60" %>
 <table>
   <tbody>
      <tr>
         <th>name</th>
-        <th><%= @user.name %></th>
+        <th><%= user.name %></th>
      </tr>
      <tr>
         <th>introduction</th>
-        <th><%= @user.introduction %></th>
+        <th><%= user.introduction %></th>
      </tr>
   </tbody>
 </table>
 
 <div>
-	<%= link_to "リンク先", edit_user_path(@user) %>
+	<%= link_to "リンク先", edit_user_path(user) %>
 </div>
 
 <h3>New book</h3>

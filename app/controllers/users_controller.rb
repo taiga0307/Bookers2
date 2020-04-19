@@ -5,30 +5,29 @@ class UsersController < ApplicationController
     @user = current_user
   end
 
-  def edit
-  	@user = User.find(params[:id])
-  end
-
   def show
     @book  = Book.new
-    @books = Book.find(params[:id])
     @user = User.find(params[:id])
+    @books = @user.books
+  end
+
+  def edit
+  	@user = User.find(params[:id])
   end
 
   def update
   	@user = User.find(params[:id])
     if @user.update(user_params)
       # user編集画面成功時
-      flash[:success] = 'You have updated user successfully.'
-    redirect_to user_path(@user.id)
+      redirect_to user_path(@user.id)
+      flash[:notice] = 'You have updated user successfully.'
     else
-      @user = User.all
       render :edit 
     end
   end
 
   private
   def user_params
-    params.require(:user).permit(:name, :Introduction, :profile_image)
+    params.require(:user).permit(:name, :introduction, :profile_image)
   end
 end
