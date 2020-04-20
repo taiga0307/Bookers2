@@ -1,19 +1,18 @@
 class BooksController < ApplicationController
-  
+  before_action :authenticate_user!
   def index
-    @book  = Book.new
-    @books = Book.all
+    @book  = Book.new # New bookのフォーム作成の為
+    @books = Book.all # book/indexの投稿一覧表示の為
   end
 
   def show
-    @book  = Book.new
+    @book  = Book.new # New bookのフォーム作成の為
     @books = Book.find(params[:id])
     @user = User.find(@books.user_id)
-    @users = @books.user
-    # 1つの本にむすびついているuserの情報を持ってくる
+    @users = @books.user # 1つの本にむすびついているuserの情報を持ってくる
   end
 
-  def create# submitを押した際に適用される
+  def create # submitを押した際に適用される
     @book = Book.new(book_params)
     # Book.new(book_params)=不完全な箱（saveがされていない為）
     @book.user_id = current_user.id
@@ -23,12 +22,16 @@ class BooksController < ApplicationController
     redirect_to book_path(@book.id)
     # (@book.id)で保存されたから次のページに飛べる
     else
+      @books = Book.all
       render :index #indexに戻す
     end
   end
 
   def edit
     @books = Book.find(params[:id])
+    if current_user.id != @books.user_id
+    redirect_to books_path
+    end
   end
 
   def update
@@ -37,14 +40,17 @@ class BooksController < ApplicationController
        redirect_to book_path(@books.id)
        flash[:success] = 'You have updated book successfully.'
     else
-       render :edit
+       render :edit #editに戻す
     end
   end
 
   def destroy
       @books = Book.find(params[:id])
-      @books.destroy
-      redirect_to books_path
+      if @books.destroy
+         redirect_to books_path
+      else
+         render :edit
+      end
   end
 
   private

@@ -1,23 +1,35 @@
+<div class="body">
+  <div class="container">
+    <p id="notice"></p>
+    <div class="row">
+      <div class="col-xs-3">
+<!-- User info -->
+<!-- New book -->
+<%= render 'books/list', book: @book, user: current_user %>
+      </div>
 
-
-<%= render 'books/list', book: @book ,user: current_user %>
-
-<h1>Users</h1>
-<table>
-	<thead>
-		<tr>
-			<th>image</th>
-		    <th>name</th>
-		</tr>
-	</thead>
-	<tbody>
-	  <% @users.each do |user| %><!-- 繰り返し処理 -->
-		<tr>
-			<td><%= attachment_image_tag user, :profile_image,　format: 'jpeg', fallback: "no_image.jpg", size: "60x60" %></td>
-			<td><%= user.name %></td>
-			<td><%= link_to "Show",user_path(user.id) %></td>
-	    </tr>
-	  <% end %>
-	</tbody>
-</table>
+      <div class="col-xs-9">
+	    <h2>Users</h2>
+            <table class="table">
+			  <thead>
+				<tr>
+			      <th>image</th>
+		    	  <th>name</th>
+		    	  <th></th>
+				</tr>
+			  </thead>
+			  <tbody>
+	  			<% @users.each do |user| %><!-- 繰り返し処理 -->
+				<tr>
+			   	  <td><%= attachment_image_tag user, :profile_image,　format: 'jpeg', fallback: "no_image.jpg", size: "60x60" %></td>
+				  <td><%= user.name %></td>
+			      <td><%= link_to "Show",user_path(user.id) %></td>
+	    			</tr>
+	  		 	 <% end %>
+			  </tbody>
+			</table>
+      </div>
+	</div>
+  </div>
 </div>
+

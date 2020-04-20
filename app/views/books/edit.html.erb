@@ -1,28 +1,37 @@
-<h1>Editing Book</h1>
+<div class="body">
+  <div class="container">
+    <p id="notice"></p>
+    <div class="row">
+      <div class="col-md-6 col-md-offset-3">
+        <h1>Editing Book</h1>
+        <% if @books.errors.any? %>
+        <div class="alert alert-warning">
+          <h2><%= @books.errors.count %>error prohibited this obj from being saved:</h2>
+            <ul>
+            <% @books.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+            </ul>
+        </div>
+        <% end %>
 
-<% if @books.errors.any? %>
-  <div class="alert alert-warning">
-    <h2><%= @books.errors.count %>error prohibited this obj from being saved:</h2>
-    <ul>
-      <% @books.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
+      <%= form_for @books do |f| %>
+        <!-- @book=Book.new＝＞createアクションで定義した空箱 -->
+        <div class="field row">
+        <h4>Title</h4>
+        <%= f.text_field :title, class: "col-xs-12 book_body" %>
+        <!-- 空箱にtitleが登録されている -->
+        </div>
+        <div class="field row">
+        <h4>Opinion</h4>
+        <%= f.text_area :body, class: "col-xs-12 book_body" %><br><br>
+        <!-- 空箱にbodyが登録されている -->
+        </div>
+        <div class="field row">
+        <%= f.submit 'Update Book', class: "btn btn-primary col-xs-12" %>
+        </div>
       <% end %>
-    </ul>
-  </div>
-<% end %>
 
-<%= form_for @books do |f| %>
-<!-- @book=Book.new＝＞createアクションで定義した空箱 -->
-<h4>Title</h4>
-<%= f.text_field :title %>
-<!-- 空箱にtitleが登録されている -->
-<h4>Opinion</h4>
-<%= f.text_area :body %><br><br>
-<!-- 空箱にbodyが登録されている -->
-<%= f.submit 'Update Book' %>
-
-<% end %>
-
-<%= link_to "Show",book_path(@books) %></td>
-<%= link_to "Back",books_path(@books) %></td>
+        <%= link_to "Show",book_path(@books) %></td>
+        <%= link_to "Back", books_path %></td>
 
