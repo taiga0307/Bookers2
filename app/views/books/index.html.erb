@@ -40,6 +40,26 @@
 			    </td>
 			    <td><%= book.body %>
 			    </td>
+          <td>
+            <!-- いいね機能 -->
+            <% if book.favorited_by?(current_user) %>
+              <%= link_to book_favorites_path(book.id), method: :delete do %>
+              <span class="glyphicon glyphicon-heart" aria-hidden="true" style="color: red;"></span>
+              <%= book.favorites.count %>
+              <% end %>
+          <% else %>
+              <%= link_to book_favorites_path(book.id), method: :post do %>
+              <span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
+              <%= book.favorites.count %>
+              <% end %>
+          <% end %>
+            <!-- いいね機能 -->
+          </td>
+          <td>
+            <!-- コメント機能 -->
+            <p class="comment-count">コメント数：<%= book.book_comments.count %></p>
+            <!-- コメント機能 -->
+          </td>
 	          </tr>
 	        <% end %>
 	        </tbody>
