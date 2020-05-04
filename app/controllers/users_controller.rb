@@ -12,6 +12,14 @@ class UsersController < ApplicationController
     @books = @user.books
   end
 
+  def followers
+    @user = User.find(params[:id])
+  end
+
+  def follows
+    @user = User.find(params[:id])
+  end
+
   def edit
   	@user = User.find(params[:id])
     if current_user != @user
@@ -26,7 +34,7 @@ class UsersController < ApplicationController
       redirect_to user_path(@user.id)
       flash[:notice] = 'You have updated user successfully.'
     else
-      render :edit 
+      render :edit
     end
   end
 
