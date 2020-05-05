@@ -44,8 +44,22 @@
         </li>
          <% end %>
        </ul>
-   </div>
+  </div>
 </header>
+<main>
+  <!-- 検索フォーム -->
+  <%= form_with url: search_path, method: :get, local: true do |f| %><!-- form_withは架空のカラムを使用する際に使用。情報を送信するためのヘルパーメソッド※form_forはデータを保存する必要がある時 ※form_tagはフォームに入力されたデータを保存する必要がない時 -->
+    <%= f.text_field :search, placeholder: "検索ワードを入力" %>
+    <!-- 検索ワードを入力を入力するための架空カラム -->
+    <%= f.select :genre, [["User", "user"], ["Book", "book"]] %>
+    <%= f.select :direction, [["完全一致","完全一致"], ["前方一致", "前方一致"], ["後方一致", "後方一致"], ["部分一致","部分一致"]] %>
+    <!-- 配列[[ 選択肢の表示名1, 実際に送信されるデータ1 ], [ 選択肢の表示名1, 実際に送信されるデータ2 ]] -->
+    <%= f.submit "検索" %>
+  <% end %>
+  <!-- 検索フォーム -->
+</main>
+
+<%= yield %>
 
 <footer class="footer">
 <div class= "container">
@@ -56,9 +70,6 @@
   </div>
 </div>
 </footer>
-
-
-<%= yield %>
 
 </body>
 </html>

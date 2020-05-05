@@ -43,6 +43,17 @@ class User < ApplicationRecord
   # フォローしていればtrueを返す
   def following?(user) #user/indexの<% if user.following?(current_user) %>　(current_user)=(user)
     passive_relationships.find_by(follower_id: user.id).present?
+  end
 
+  def User.search(search, genre, direction)
+      if direction == "完全一致"
+         User.where(name: "#{search}") #where検索したものを全て取得。find,findby
+      elsif direction == "前方一致"
+         User.where(['name LIKE ?', "#{search}%"])
+      elsif direction == "後方一致"
+         User.where(['name LIKE ?', "%#{search}"])
+      elsif direction == "部分一致"
+         User.where(['name LIKE ?', "%#{search}%"])
+      end
   end
 end

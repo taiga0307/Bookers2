@@ -14,5 +14,7 @@ Rails.application.routes.draw do
     get :followers, on: :member # member は特定のデータに対するアクションに利用。/users/1/followers
   end
 
+  get '/search',to: 'search#search' # 検索フォームリダイレクト用
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
