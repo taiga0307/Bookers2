@@ -7,11 +7,10 @@ class BooksController < ApplicationController
 
   def show
     @book  = Book.new # New bookのフォーム作成の為
-    @books = Book.find(params[:id])
-    @user = User.find(@books.user_id)
-    @users = @books.user # 1つの本にむすびついているuserの情報を持ってくる
+    @bookf = Book.find(params[:id])
+    @user = @bookf.user# 1つの本にむすびついているuserの情報を持ってくる
     @book_comment = BookComment.new
-    @book_comments = @books.book_comments
+    @book_comments = @bookf.book_comments
   end
 
   def create # submitを押した際に適用される
